@@ -49,10 +49,10 @@ export function CinemaHero() {
           <div className="ed-grid items-end">
             <h1 className="col-span-12 font-display font-light leading-[0.9] tracking-tightest text-hero">
               <span className="block">
-                <RevealText text="Питание" />
+                <RevealText text="Тот же трейлер —" />
               </span>
               <span className="block italic text-latte">
-                <RevealText text="съёмочной группы —" delay={0.06} />
+                <RevealText text="на площадке," delay={0.06} />
               </span>
               <span className="block">
                 <RevealText text="без пауз в графике." delay={0.12} />
@@ -67,8 +67,9 @@ export function CinemaHero() {
               transition={{ delay: 0.8, duration: 1 }}
               className="col-span-12 lg:col-span-6 max-w-xl text-milk/75 text-lg md:text-xl text-pretty"
             >
-              Кормили сериалы федеральных каналов, ночные смены рекламных съёмок и
-              полнометражное кино в поле. Приезжаем за 90 минут, работаем до последнего дубля.
+              Универсальный фудтрак Little Barista в контексте продакшна: горячее
+              питание для группы 20–300 человек, ланч-боксы навынос, кофе на автомате.
+              Приезжаем за 90 минут, работаем до последнего дубля.
             </motion.p>
 
             <motion.div

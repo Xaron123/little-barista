@@ -41,13 +41,13 @@ export function EventsHero() {
             <div className="col-span-12 lg:col-span-7">
               <h1 className="font-display font-light leading-[0.92] tracking-tightest text-hero text-ink">
                 <span className="block">
-                  <RevealText text="Гости запомнят" />
+                  <RevealText text="Тот же трейлер —" />
                 </span>
                 <span className="block italic text-coffee">
-                  <RevealText text="не столы —" delay={0.06} />
+                  <RevealText text="на вашем" delay={0.06} />
                 </span>
                 <span className="block">
-                  <RevealText text="атмосферу." delay={0.12} />
+                  <RevealText text="празднике." delay={0.12} />
                 </span>
               </h1>
 
@@ -57,8 +57,9 @@ export function EventsHero() {
                 transition={{ delay: 0.7, duration: 1 }}
                 className="mt-10 max-w-xl text-ink/70 text-lg md:text-xl text-pretty"
               >
-                Свадьбы, юбилеи, корпоративы. Фудтрак становится живым центром вашего
-                вечера — от утреннего кофе для команды до вечернего десерта под гирлянды.
+                Тот же универсальный фудтрак становится живым центром вечера. Утренний
+                кофе для сборов, барбекю-линия у пруда, десертный бар под гирлянды —
+                свадьбы, юбилеи, корпоративы, фестивали.
               </motion.p>
 
               <motion.div

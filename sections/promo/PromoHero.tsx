@@ -36,13 +36,13 @@ export function PromoHero() {
           <div className="col-span-12 lg:col-span-7">
             <h1 className="font-display font-light leading-[0.9] tracking-tightest text-hero">
               <span className="block">
-                <RevealText text="Ваш бренд —" />
+                <RevealText text="Тот же трейлер —" />
               </span>
               <span className="block italic text-latte">
-                <RevealText text="в очереди" delay={0.06} />
+                <RevealText text="в центре" delay={0.06} />
               </span>
               <span className="block">
-                <RevealText text="за кофе." delay={0.12} />
+                <RevealText text="города." delay={0.12} />
               </span>
             </h1>
 
@@ -52,9 +52,9 @@ export function PromoHero() {
               transition={{ delay: 0.7, duration: 1 }}
               className="mt-10 max-w-xl text-milk/75 text-lg md:text-xl text-pretty"
             >
-              Превращаем фудтрак в промо-инструмент: брендируем, готовим тематическое
-              меню, собираем очередь и контент. Живая альтернатива стандартным
-              активациям.
+              Универсальный фудтрак — теперь в роли промо-инструмента. Брендируем
+              машину, готовим тематическое меню, собираем очередь и контент. Живая
+              альтернатива стандартным активациям.
             </motion.p>
 
             <motion.div
