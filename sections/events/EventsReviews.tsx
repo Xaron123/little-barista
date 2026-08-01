@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 const REVIEWS = [
   {
@@ -10,72 +10,71 @@ const REVIEWS = [
       "Little Barista сделали нашу свадьбу вкусной. Гости до сих пор пишут про их фильтр-кофе и лепёшки с треской.",
     author: "Аня и Костя",
     role: "Свадьба · Никола-Ленивец",
-    img: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=70",
   },
   {
     quote:
       "Заказывали фудтрак на 30-летие. Всё быстро, красиво, без единого «мы забыли». Плюс — свою эстетику привозят с собой.",
     author: "Дарья",
     role: "Юбилей · дом на Пироговке",
-    img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=70",
   },
   {
     quote:
       "3000 гостей на open-air и ни одной задержки на выдаче. Ребята — золото.",
     author: "Артём Ким",
     role: "Фестиваль Signal",
-    img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=800&q=70",
   },
 ];
 
 export function EventsReviews() {
   return (
-    <section className="bg-milk py-28 md:py-36">
+    <section className="bg-milk py-28 md:py-40">
       <div className="container">
-        <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <Eyebrow className="text-ink/60">Отзывы</Eyebrow>
-            <h2 className="mt-6 font-display text-display font-light leading-[1.02] tracking-tight max-w-2xl text-balance">
-              Гости пишут первыми. <br />
-              <em className="italic font-light text-ink/50">Это лучший индикатор.</em>
-            </h2>
-          </div>
-          <div className="flex items-center gap-3">
+        <div className="flex items-end justify-between">
+          <SectionLabel n="04" title="Отзывы" className="text-ink/70" />
+          <div className="flex items-center gap-3 text-sm text-ink/60">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-coffee text-coffee" />
+                <Star key={i} className="h-4 w-4 fill-bronze text-bronze" />
               ))}
             </div>
-            <div className="text-sm text-ink/60">
-              4.98 · <span className="tabular-nums">312</span> отзывов
-            </div>
+            <span className="font-mono text-meta uppercase num-pill">
+              4.98 · 312
+            </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <h2 className="mt-14 max-w-4xl font-display text-display font-light leading-[0.96] tracking-tightest text-balance">
+          Гости пишут первыми.{" "}
+          <em className="italic font-light text-ink/50">
+            Это лучший индикатор.
+          </em>
+        </h2>
+
+        <div className="mt-20 space-y-0">
           {REVIEWS.map((r, i) => (
             <motion.figure
               key={r.author}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.9, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-3xl bg-cream"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-12 items-baseline gap-6 border-t border-ink/15 py-12"
             >
-              <div className="aspect-[16/10] overflow-hidden">
-                <img src={r.img} alt="" className="h-full w-full object-cover" />
+              <div className="col-span-12 md:col-span-3 font-mono text-meta uppercase text-ink/60">
+                <div className="text-bronze">N° 0{i + 1}</div>
+                <div className="mt-3 text-ink">{r.author}</div>
+                <div className="mt-1 text-ink/50 normal-case tracking-normal">
+                  {r.role}
+                </div>
               </div>
-              <div className="flex flex-1 flex-col p-8">
-                <blockquote className="font-display text-xl font-light leading-snug tracking-tight text-ink text-pretty">
-                  «{r.quote}»
-                </blockquote>
-                <figcaption className="mt-6 border-t border-ink/10 pt-4">
-                  <div className="font-medium text-ink">{r.author}</div>
-                  <div className="text-sm text-ink/60">{r.role}</div>
-                </figcaption>
-              </div>
+              <blockquote className="col-span-12 md:col-span-9 font-display text-[clamp(1.5rem,2.8vw,2.5rem)] font-light leading-[1.08] tracking-tight text-ink text-balance">
+                <span className="italic text-bronze">«</span>
+                {r.quote}
+                <span className="italic text-bronze">»</span>
+              </blockquote>
             </motion.figure>
           ))}
+          <div className="border-t border-ink/15" />
         </div>
       </div>
     </section>

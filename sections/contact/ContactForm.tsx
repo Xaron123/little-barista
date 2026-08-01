@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { cn } from "@/lib/utils";
 
 const SCENARIOS = ["Кино / TV", "Мероприятие", "Промо / BTL", "Ещё не решили"];
-const GUESTS = ["до 30", "30–100", "100–500", "500+"];
+const GUESTS = ["до 30", "30—100", "100—500", "500+"];
 
 export function ContactForm() {
   const [scenario, setScenario] = useState(SCENARIOS[0]);
@@ -25,119 +25,134 @@ export function ContactForm() {
 
   return (
     <section className="bg-milk py-24 md:py-32">
-      <div className="container grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-4">
-          <Eyebrow className="text-ink/60">Бриф</Eyebrow>
-          <h2 className="mt-6 font-display text-display font-light leading-[1.02] tracking-tight text-balance">
-            Оставьте заявку — <br />
-            <em className="italic font-light text-ink/50">ответим за час.</em>
-          </h2>
-          <p className="mt-6 max-w-sm text-ink/60 text-pretty">
-            Расскажите, что за проект, сколько людей и когда. Дальше подхватим и сделаем
-            всё сами.
-          </p>
-        </div>
+      <div className="container">
+        <SectionLabel n="01" title="Бриф · 60 секунд" className="text-ink/70" />
 
-        <form
-          onSubmit={submit}
-          className="lg:col-span-8 rounded-[32px] border border-ink/10 bg-cream p-6 md:p-10"
-        >
-          <Field label="Направление">
-            <div className="mt-4 flex flex-wrap gap-2">
-              {SCENARIOS.map((s) => (
-                <Chip
-                  key={s}
-                  active={scenario === s}
-                  onClick={() => setScenario(s)}
-                >
-                  {s}
-                </Chip>
-              ))}
+        <div className="mt-14 ed-grid gap-y-14">
+          <div className="col-span-12 lg:col-span-4">
+            <h2 className="font-display text-display font-light leading-[0.96] tracking-tightest text-balance">
+              Оставьте заявку —{" "}
+              <em className="italic font-light text-ink/50">ответим за час.</em>
+            </h2>
+            <p className="mt-8 max-w-sm text-ink/60 text-pretty">
+              Расскажите, что за проект, сколько людей и когда. Дальше подхватим и
+              сделаем всё сами.
+            </p>
+
+            <div className="mt-12 space-y-4 border-t border-ink/15 pt-8 text-sm">
+              <div className="flex items-baseline justify-between">
+                <span className="text-meta uppercase font-mono text-ink/50">
+                  Оффер
+                </span>
+                <span className="text-ink">Ответ в течение часа</span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-meta uppercase font-mono text-ink/50">
+                  Смета
+                </span>
+                <span className="text-ink">В тот же день</span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-meta uppercase font-mono text-ink/50">
+                  Договор
+                </span>
+                <span className="text-ink">Электронный, СБП</span>
+              </div>
             </div>
-          </Field>
-
-          <Divider />
-
-          <Field label="Количество гостей">
-            <div className="mt-4 flex flex-wrap gap-2">
-              {GUESTS.map((g) => (
-                <Chip key={g} active={guests === g} onClick={() => setGuests(g)}>
-                  {g}
-                </Chip>
-              ))}
-            </div>
-          </Field>
-
-          <Divider />
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <Field label="Как к вам обращаться">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Имя"
-                className="mt-4 w-full border-b border-ink/15 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-ink focus:outline-none"
-              />
-            </Field>
-            <Field label="Телефон или Telegram">
-              <input
-                type="text"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
-                placeholder="+7 999 999-99-99"
-                className="mt-4 w-full border-b border-ink/15 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-ink focus:outline-none"
-              />
-            </Field>
           </div>
 
-          <Divider />
+          <form
+            onSubmit={submit}
+            className="col-span-12 lg:col-span-7 lg:col-start-6 space-y-10"
+          >
+            <FieldRow label="Направление">
+              <div className="flex flex-wrap gap-2">
+                {SCENARIOS.map((s) => (
+                  <Chip
+                    key={s}
+                    active={scenario === s}
+                    onClick={() => setScenario(s)}
+                  >
+                    {s}
+                  </Chip>
+                ))}
+              </div>
+            </FieldRow>
 
-          <Field label="Про проект">
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Локация, дата, особенности, референсы…"
-              rows={4}
-              className="mt-4 w-full resize-none border-b border-ink/15 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-ink focus:outline-none"
-            />
-          </Field>
+            <FieldRow label="Количество гостей">
+              <div className="flex flex-wrap gap-2">
+                {GUESTS.map((g) => (
+                  <Chip key={g} active={guests === g} onClick={() => setGuests(g)}>
+                    {g}
+                  </Chip>
+                ))}
+              </div>
+            </FieldRow>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-            <p className="max-w-md text-xs text-ink/50">
-              Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных
-              данных.
-            </p>
-            <motion.button
-              whileHover={{ scale: 0.98 }}
-              whileTap={{ scale: 0.96 }}
-              type="submit"
-              disabled={sent}
-              className={cn(
-                "group inline-flex items-center gap-6 rounded-full px-6 py-4 transition-colors",
-                sent ? "bg-coffee text-milk" : "bg-ink text-milk hover:bg-graphite"
-              )}
-            >
-              <span className="font-medium">
-                {sent ? "Отправлено · спасибо" : "Отправить бриф"}
-              </span>
-              <span
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <FieldRow label="Как к вам обращаться">
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Имя"
+                  className="w-full border-b border-ink/20 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-bronze focus:outline-none"
+                />
+              </FieldRow>
+              <FieldRow label="Телефон или Telegram">
+                <input
+                  type="text"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                  placeholder="+7 999 999 99 99"
+                  className="w-full border-b border-ink/20 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-bronze focus:outline-none"
+                />
+              </FieldRow>
+            </div>
+
+            <FieldRow label="Про проект">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Локация, дата, особенности, референсы…"
+                rows={4}
+                className="w-full resize-none border-b border-ink/20 bg-transparent pb-3 text-lg placeholder:text-ink/30 focus:border-bronze focus:outline-none"
+              />
+            </FieldRow>
+
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
+              <p className="max-w-md text-xs text-ink/50">
+                Нажимая «Отправить», вы соглашаетесь с политикой обработки персональных
+                данных.
+              </p>
+              <motion.button
+                whileHover={{ scale: 0.99 }}
+                whileTap={{ scale: 0.97 }}
+                type="submit"
+                disabled={sent}
                 className={cn(
-                  "inline-flex h-8 w-8 items-center justify-center rounded-full bg-milk text-ink transition-transform",
-                  sent ? "rotate-45" : "group-hover:rotate-45"
+                  "group inline-flex items-baseline gap-4 border-b pb-3 font-display text-3xl italic transition-colors",
+                  sent
+                    ? "border-bronze text-bronze"
+                    : "border-ink/40 text-ink hover:text-coffee"
                 )}
               >
-                {sent ? <Check className="h-4 w-4" /> : <ArrowUpRight className="h-4 w-4" />}
-              </span>
-            </motion.button>
-          </div>
-        </form>
+                <span>{sent ? "Отправлено · спасибо" : "Отправить бриф"}</span>
+                {sent ? (
+                  <Check className="h-6 w-6 translate-y-1 text-bronze" />
+                ) : (
+                  <ArrowUpRight className="h-6 w-6 translate-y-1 transition-transform group-hover:rotate-45" />
+                )}
+              </motion.button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
 }
 
-function Field({
+function FieldRow({
   label,
   children,
 }: {
@@ -146,14 +161,12 @@ function Field({
 }) {
   return (
     <div>
-      <div className="text-eyebrow uppercase font-mono text-ink/50">{label}</div>
+      <div className="mb-5 text-eyebrow uppercase font-mono text-ink/50">
+        {label}
+      </div>
       {children}
     </div>
   );
-}
-
-function Divider() {
-  return <div className="my-8 h-px bg-ink/10" />;
 }
 
 function Chip({
@@ -170,10 +183,10 @@ function Chip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-sm transition-all",
+        "border px-5 py-3 text-sm transition-all",
         active
           ? "border-ink bg-ink text-milk"
-          : "border-ink/15 text-ink/70 hover:border-ink/40"
+          : "border-ink/20 text-ink/70 hover:border-ink/50"
       )}
     >
       {children}

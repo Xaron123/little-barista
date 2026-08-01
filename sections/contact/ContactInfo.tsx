@@ -1,14 +1,14 @@
 "use client";
 
 import { Mail, Phone, MessageCircle, MapPin } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 
 const ITEMS = [
   {
     icon: Phone,
     label: "Телефон",
-    value: "+7 (999) 999-99-99",
+    value: "+7 999 999 99 99",
     href: "tel:+79999999999",
   },
   {
@@ -35,17 +35,23 @@ export function ContactInfo() {
   return (
     <section className="bg-cream py-24 md:py-28">
       <div className="container">
-        <Eyebrow className="text-ink/60">Ещё способы</Eyebrow>
-        <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionLabel n="02" title="Ещё способы" className="text-ink/70" />
+
+        <div className="mt-14 grid grid-cols-1 border-t border-l border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
           {ITEMS.map((it, i) => (
             <Reveal
               key={it.label}
               delay={i * 0.06}
-              className="group bg-milk p-8 transition-colors hover:bg-cream"
+              className="group border-b border-r border-ink/15 p-8 transition-colors hover:bg-milk"
             >
               <a href={it.href} className="block h-full">
-                <it.icon className="h-6 w-6 text-ink/70" strokeWidth={1.5} />
-                <div className="mt-10 text-xs font-mono uppercase tracking-widest text-ink/50">
+                <div className="flex items-center justify-between">
+                  <it.icon className="h-5 w-5 text-ink/70" strokeWidth={1.5} />
+                  <span className="font-mono text-meta uppercase text-ink/40">
+                    N° 0{i + 1}
+                  </span>
+                </div>
+                <div className="mt-16 text-eyebrow uppercase font-mono text-ink/50">
                   {it.label}
                 </div>
                 <div className="mt-2 font-display text-2xl font-light tracking-tight text-ink transition-colors group-hover:text-coffee">

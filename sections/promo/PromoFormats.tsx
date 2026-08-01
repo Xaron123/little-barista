@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { Palette, Coffee, Zap, Radio } from "lucide-react";
 
@@ -34,48 +33,36 @@ const FORMATS = [
 
 export function PromoFormats() {
   return (
-    <section id="formats" className="bg-ink text-milk py-28 md:py-36">
+    <section id="formats" className="bg-ink text-milk py-28 md:py-40">
       <div className="container">
-        <div className="mb-16 grid grid-cols-1 gap-10 md:grid-cols-12">
-          <div className="md:col-span-6">
-            <Eyebrow className="text-milk/60">Форматы активаций</Eyebrow>
-            <h2 className="mt-6 font-display text-display font-light leading-[1.02] tracking-tight text-balance">
-              От брендирования <br />
-              <em className="italic font-light text-milk/50">до полноценной кампании.</em>
-            </h2>
-          </div>
-        </div>
+        <SectionLabel n="02" title="Форматы активаций" className="text-milk/60" />
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <h2 className="mt-14 max-w-5xl font-display text-display font-light leading-[0.96] tracking-tightest text-balance">
+          От брендирования{" "}
+          <em className="italic font-light text-milk/50">до полной кампании.</em>
+        </h2>
+
+        <div className="mt-20 space-y-0 border-t border-linelight">
           {FORMATS.map((f, i) => (
             <Reveal
               key={f.n}
-              delay={(i % 2) * 0.08}
-              className="group relative overflow-hidden rounded-3xl border border-linelight bg-graphite/60 p-8 transition-colors hover:bg-graphite md:p-10"
+              delay={i * 0.05}
+              className="group grid grid-cols-12 items-center gap-6 border-b border-linelight py-10 transition-colors hover:bg-graphite/50 md:py-14"
             >
-              <div className="flex items-start justify-between">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-latte text-ink transition-transform duration-500 group-hover:rotate-6">
-                  <f.icon className="h-6 w-6" strokeWidth={1.5} />
-                </div>
-                <div className="font-mono text-xs uppercase tracking-widest text-milk/40">
-                  {f.n}
+              <div className="col-span-12 md:col-span-1 font-mono text-meta uppercase text-bronzeLight num-pill">
+                N° {f.n}
+              </div>
+              <div className="col-span-2 md:col-span-1">
+                <div className="inline-flex h-12 w-12 items-center justify-center border border-linelight transition-transform duration-500 group-hover:rotate-6">
+                  <f.icon className="h-5 w-5 text-bronzeLight" strokeWidth={1.4} />
                 </div>
               </div>
-
-              <div className="mt-14">
-                <div className="font-display text-3xl font-light tracking-tight">
-                  {f.title}
-                </div>
-                <p className="mt-3 max-w-md text-milk/60 text-pretty">{f.text}</p>
+              <div className="col-span-10 md:col-span-5 font-display text-[clamp(1.75rem,3vw,3rem)] font-light leading-none tracking-tightest">
+                {f.title}
               </div>
-
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 h-px origin-left bg-latte/40"
-              />
+              <p className="col-span-12 md:col-span-5 text-milk/70 text-lg text-pretty">
+                {f.text}
+              </p>
             </Reveal>
           ))}
         </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function PromoCTA() {
   return (
@@ -12,7 +12,7 @@ export function PromoCTA() {
         className="pointer-events-none absolute inset-0 opacity-25"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=2000&q=70')",
+            "url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=2400&q=80')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -20,25 +20,24 @@ export function PromoCTA() {
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-transparent" />
 
       <div className="container relative">
-        <Eyebrow className="text-milk/60">Запустить активацию</Eyebrow>
-        <h2 className="mt-6 max-w-4xl font-display text-[clamp(2.5rem,6vw,5rem)] font-light leading-[0.98] tracking-tight text-balance">
+        <SectionLabel n="06" title="Запустить активацию" className="text-milk/60" />
+
+        <h2 className="mt-10 max-w-5xl font-display text-[clamp(2.5rem,8vw,6.5rem)] font-light leading-[0.94] tracking-tightest text-balance">
           Обсудим кампанию <br />
           <em className="italic text-latte">и посчитаем медиа-эффект.</em>
         </h2>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        <div className="mt-14 flex flex-wrap items-center gap-8">
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-6 rounded-full bg-latte px-6 py-4 text-ink transition-colors hover:bg-milk"
+            className="group inline-flex items-baseline gap-4 border-b border-milk/50 pb-3 font-display text-3xl italic"
           >
-            <span className="font-medium">Запросить медиакит</span>
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-latte transition-transform group-hover:rotate-45">
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
+            Запросить медиакит
+            <ArrowUpRight className="h-6 w-6 translate-y-1 transition-transform group-hover:rotate-45" />
           </Link>
           <Link
             href="/cases"
-            className="inline-flex items-center rounded-full border border-linelight px-6 py-4 text-milk hover:bg-white/5"
+            className="font-mono text-meta uppercase text-milk/70 link-bronze"
           >
             Посмотреть кейсы
           </Link>

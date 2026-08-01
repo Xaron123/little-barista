@@ -1,141 +1,230 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { SCENARIOS } from "@/data/scenarios";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { cn } from "@/lib/utils";
+
+type Row = {
+  n: string;
+  tag: string;
+  title: string;
+  titleItalic: string;
+  lead: string;
+  bullets: string[];
+  href: string;
+  image: string;
+  imageCaption: string;
+  reverse?: boolean;
+  theme: "cream" | "graphite" | "milk";
+};
+
+const ROWS: Row[] = [
+  {
+    n: "01",
+    tag: "Кино · TV · Реклама",
+    title: "Питание",
+    titleItalic: "съёмочной группы.",
+    lead: "Горячее питание на локации, бесперебойный кофе и ланч-боксы — от рассвета до глубокой ночи. Приезжаем за 90 минут, работаем до последнего дубля.",
+    bullets: ["Полная кухня в трейлере", "От 20 до 300 человек", "Ланч-боксы навынос"],
+    href: "/cinema",
+    image:
+      "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=1800&q=80",
+    imageCaption: "Ночная смена, −18 °C · Сериал для Кинопоиска",
+    theme: "graphite",
+  },
+  {
+    n: "02",
+    tag: "Свадьбы · ДР · Корпоративы",
+    title: "Кейтеринг",
+    titleItalic: "живого праздника.",
+    lead: "Свадьбы, дни рождения, корпоративы. Фудтрак становится живым центром вашего вечера — от утреннего кофе для команды до вечернего десерта под гирлянды.",
+    bullets: ["От камерного ужина до 3000 гостей", "Меню под ваш формат", "Работа в паре с декоратором"],
+    href: "/events",
+    image:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=80",
+    imageCaption: "Свадьба в Никола-Ленивце · 140 гостей",
+    reverse: true,
+    theme: "cream",
+  },
+  {
+    n: "03",
+    tag: "Промо · Дегустации · BTL",
+    title: "Рекламные акции",
+    titleItalic: "и брендирование.",
+    lead: "Мы превращаем фудтрак в промо-инструмент: брендируем машину, готовим тематическое меню, собираем очередь и контент. Живая альтернатива стандартным активациям.",
+    bullets: ["Полное брендирование машины", "Городские активации", "QR-механики, дегустации"],
+    href: "/promo",
+    image:
+      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1800&q=80",
+    imageCaption: "Sber Green · парк Горького · 2 340 чашек за смену",
+    theme: "milk",
+  },
+];
 
 export function ScenarioCards() {
   return (
-    <section id="scenarios" className="relative bg-milk py-24 md:py-32">
-      <div className="container">
-        <div className="mb-14 flex flex-col items-start justify-between gap-8 md:mb-20 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <Eyebrow className="text-ink/60">Три сценария</Eyebrow>
-            <h2 className="mt-5 font-display text-display font-light leading-[1.02] tracking-tight text-balance">
-              Один фудтрак — три истории.<br />
-              <span className="italic text-ink/50">Выберите свою.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-ink/60 text-lg text-pretty">
-            У каждого направления собственный дизайн, логика и предложение. Кликните —
-            и сайт превратится в отдельный лендинг для вашей задачи.
+    <section id="scenarios" className="bg-milk">
+      {/* Section intro */}
+      <div className="container pt-24 pb-16 md:pt-36 md:pb-24">
+        <SectionLabel n="02" title="Сценарии работы" className="text-ink/70" />
+        <div className="mt-10 ed-grid items-end">
+          <h2 className="col-span-12 lg:col-span-8 font-display text-display font-light tracking-tightest text-balance">
+            Один фудтрак —{" "}
+            <em className="italic font-light text-ink/50">три истории.</em>{" "}
+            Выберите свою.
+          </h2>
+          <p className="col-span-12 lg:col-span-3 lg:col-start-10 mt-6 lg:mt-0 text-ink/60 text-pretty">
+            У каждого направления собственный дизайн, ритм и предложение. Кликните — и
+            сайт превратится в отдельный лендинг для вашей задачи.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-          {SCENARIOS.map((s, i) => (
-            <ScenarioCard key={s.slug} scenario={s} index={i} />
-          ))}
-        </div>
       </div>
+
+      {ROWS.map((row) => (
+        <ScenarioRow key={row.n} row={row} />
+      ))}
     </section>
   );
 }
 
-function ScenarioCard({
-  scenario,
-  index,
-}: {
-  scenario: (typeof SCENARIOS)[number];
-  index: number;
-}) {
+function ScenarioRow({ row }: { row: Row }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+
+  const themes = {
+    graphite: "bg-graphite text-milk",
+    cream: "bg-cream text-ink",
+    milk: "bg-ink text-milk",
+  };
+  const rules =
+    row.theme === "cream" ? "border-ink/10" : "border-linelight";
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+    <div
+      ref={ref}
+      className={cn("relative w-full overflow-hidden", themes[row.theme])}
     >
-      <Link
-        href={scenario.href}
-        className={cn(
-          "group relative flex h-[560px] flex-col justify-between overflow-hidden rounded-[28px] p-7 transition-transform duration-500 hover:-translate-y-1 md:h-[640px]",
-          scenario.bg,
-          scenario.fg
-        )}
-      >
-        {/* Image bg */}
-        <div className="absolute inset-0 opacity-70 transition-opacity duration-700 group-hover:opacity-90">
-          <img
-            src={scenario.image}
-            alt=""
-            className="h-full w-full object-cover scale-105 transition-transform duration-[1200ms] ease-out group-hover:scale-100"
-          />
-          <div
-            className={cn(
-              "absolute inset-0",
-              scenario.slug === "events"
-                ? "bg-gradient-to-t from-cream via-cream/40 to-cream/10"
-                : scenario.slug === "cinema"
-                ? "bg-gradient-to-t from-graphite via-graphite/70 to-graphite/20"
-                : "bg-gradient-to-t from-ink via-ink/70 to-ink/20"
-            )}
-          />
-        </div>
-
-        {/* Top row */}
-        <div className="relative z-10 flex items-start justify-between">
-          <Eyebrow className={cn(scenario.fg, "opacity-80")}>
-            <span>{scenario.index}</span>
-            <span className="opacity-60">/</span>
-            <span>{scenario.tag}</span>
-          </Eyebrow>
-          <span
-            className={cn(
-              "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-transform duration-500 group-hover:rotate-45",
-              scenario.slug === "events"
-                ? "border-ink/20 bg-ink/5"
-                : "border-white/20 bg-white/5"
-            )}
-          >
-            <ArrowUpRight className="h-4 w-4" />
-          </span>
-        </div>
-
-        {/* Bottom content */}
-        <div className="relative z-10">
-          <h3
-            className={cn(
-              "font-display text-[clamp(2rem,3.5vw,3.25rem)] font-light leading-[0.98] tracking-tight text-balance",
-              scenario.fg
-            )}
-          >
-            {scenario.title.split("\n").map((line, i, arr) => (
-              <span key={i} className="block">
-                {i === arr.length - 1 ? <em className="font-light italic">{line}</em> : line}
-              </span>
-            ))}
-          </h3>
-
-          <p
-            className={cn(
-              "mt-5 max-w-md text-sm md:text-base opacity-80 text-pretty",
-              scenario.fg
-            )}
-          >
-            {scenario.description}
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-1.5">
-            {scenario.tags.map((t) => (
-              <span
-                key={t}
+      <div className="container py-20 md:py-32">
+        <div
+          className={cn(
+            "ed-grid items-center gap-y-10",
+            row.reverse && "lg:[direction:rtl]"
+          )}
+        >
+          {/* Image */}
+          <div className="col-span-12 lg:col-span-6 [direction:ltr]">
+            <motion.figure
+              className="relative aspect-[4/5] w-full overflow-hidden md:aspect-[5/6]"
+            >
+              <motion.img
+                style={{ y, scale }}
+                src={row.image}
+                alt={row.title}
+                className="h-full w-full object-cover will-change-transform"
+              />
+              <figcaption
                 className={cn(
-                  "rounded-full border px-3 py-1 text-xs backdrop-blur-sm",
-                  scenario.slug === "events"
-                    ? "border-ink/15 bg-white/40 text-ink/80"
-                    : "border-white/20 bg-white/5 text-white/85"
+                  "absolute inset-x-4 bottom-4 flex items-center justify-between font-mono text-meta uppercase",
+                  row.theme === "cream" ? "text-milk" : "text-milk/80"
                 )}
               >
-                {t}
-              </span>
-            ))}
+                <span
+                  className={cn(
+                    "rounded-full px-3 py-1 backdrop-blur-sm",
+                    row.theme === "cream"
+                      ? "bg-ink/60 text-milk"
+                      : "bg-ink/50 text-milk"
+                  )}
+                >
+                  Fig. {row.n}
+                </span>
+                <span
+                  className={cn(
+                    "rounded-full px-3 py-1 backdrop-blur-sm max-w-[70%] text-right",
+                    row.theme === "cream"
+                      ? "bg-ink/60 text-milk"
+                      : "bg-ink/50 text-milk"
+                  )}
+                >
+                  {row.imageCaption}
+                </span>
+              </figcaption>
+            </motion.figure>
+          </div>
+
+          {/* Text */}
+          <div className="col-span-12 lg:col-span-5 lg:col-start-8 [direction:ltr]">
+            <SectionLabel
+              n={row.n}
+              title={row.tag}
+              className={row.theme === "cream" ? "text-ink/60" : "text-milk/60"}
+            />
+
+            <h3 className="mt-8 font-display font-light leading-[0.95] tracking-tightest text-[clamp(2.5rem,6vw,5rem)] text-balance">
+              {row.title}
+              <br />
+              <em className="italic font-light opacity-70">{row.titleItalic}</em>
+            </h3>
+
+            <p
+              className={cn(
+                "mt-8 max-w-md text-lg leading-relaxed text-pretty",
+                row.theme === "cream" ? "text-ink/70" : "text-milk/70"
+              )}
+            >
+              {row.lead}
+            </p>
+
+            <ul
+              className={cn(
+                "mt-10 space-y-3 border-t pt-6 text-sm",
+                rules
+              )}
+            >
+              {row.bullets.map((b, i) => (
+                <li
+                  key={b}
+                  className={cn(
+                    "flex items-baseline gap-4 border-b pb-3",
+                    rules
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "font-mono text-meta num-pill",
+                      row.theme === "cream" ? "text-bronze" : "text-bronzeLight"
+                    )}
+                  >
+                    0{i + 1}
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href={row.href}
+              className={cn(
+                "group mt-10 inline-flex items-baseline gap-4 border-b pb-3 font-display text-2xl italic",
+                row.theme === "cream"
+                  ? "border-ink/30 text-ink"
+                  : "border-milk/30 text-milk"
+              )}
+            >
+              <span>Открыть сценарий</span>
+              <ArrowUpRight className="h-5 w-5 translate-y-1 transition-transform group-hover:rotate-45" />
+            </Link>
           </div>
         </div>
-      </Link>
-    </motion.div>
+      </div>
+    </div>
   );
 }

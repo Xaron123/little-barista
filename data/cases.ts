@@ -9,6 +9,7 @@ export type Case = {
   date: string;
   cover: string;
   short: string;
+  result: string;
 };
 
 export const CASES: Case[] = [
@@ -22,9 +23,11 @@ export const CASES: Case[] = [
     location: "Подмосковье · 42 смены",
     date: "март — июль 2026",
     cover:
-      "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=1800&q=80",
     short:
-      "12-серийный сериал. Мы кормили 120-человечную группу на 42 сменах — от рассвета до глубокой ночи, семь дней в неделю.",
+      "12-серийный сериал. Кормили 120-человечную группу на 42 сменах — от рассвета до глубокой ночи, семь дней в неделю.",
+    result:
+      "0 задержек по расписанию площадки, продлили контракт на второй сезон.",
   },
   {
     slug: "gorky-park-activation",
@@ -36,9 +39,10 @@ export const CASES: Case[] = [
     location: "Парк Горького · Москва",
     date: "май 2026",
     cover:
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1800&q=80",
     short:
-      "Полное брендирование фудтрака, механика с QR-кодом, тематическое меню. 2 340 чашек за смену.",
+      "Полное брендирование фудтрака, механика с QR, тематическое меню. 2 340 чашек за смену.",
+    result: "14K UGC-охват в первый день, 38% конверсия в скан QR.",
   },
   {
     slug: "wedding-nikola",
@@ -50,9 +54,10 @@ export const CASES: Case[] = [
     location: "Никола-Ленивец",
     date: "август 2025",
     cover:
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80",
     short:
       "Два формата зон: спокойный кофе для сборов невесты и барбекю-линия у пруда. Ночью — тёплый шоколад.",
+    result: "Гости писали в чате пары три дня после свадьбы.",
   },
   {
     slug: "signal-festival",
@@ -64,9 +69,10 @@ export const CASES: Case[] = [
     location: "Никола-Ленивец",
     date: "август 2025",
     cover:
-      "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1800&q=80",
     short:
       "Три фудтрака, быстрая линия выдачи, безналичный расчёт. Работали в тандеме с музыкальной программой.",
+    result: "Средний чек +18% к плану, повторный контракт на 2026.",
   },
   {
     slug: "aviasales-summer",
@@ -78,9 +84,10 @@ export const CASES: Case[] = [
     location: "Красная площадь · Москва",
     date: "июль 2025",
     cover:
-      "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=80",
     short:
       "Четыре дня в самом центре города. Промо стриминга, брендированные стаканы, розыгрыши билетов.",
+    result: "8 100 чашек за 4 дня, +6 200 подписчиков в приложение.",
   },
   {
     slug: "sber-corp-anniversary",
@@ -92,8 +99,9 @@ export const CASES: Case[] = [
     location: "лофт · Москва",
     date: "октябрь 2025",
     cover:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=80",
     short:
       "Корпоратив с двумя барами, живой станцией пасты и десертным столом. Тайминг синхронизирован с шоу.",
+    result: "NPS-оценка сотрудников 9.4 из 10 — рекорд для их корпоративов.",
   },
 ];

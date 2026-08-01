@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RevealText } from "@/components/ui/Reveal";
 
 export function Hero() {
@@ -12,102 +11,93 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-24%"]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="relative h-[110dvh] min-h-[720px] w-full overflow-hidden bg-graphite text-milk"
+      className="relative h-[110dvh] min-h-[720px] w-full overflow-hidden bg-espresso text-milk"
     >
-      {/* Cinematic image layer */}
+      {/* Full-bleed cinematic image */}
       <motion.div
         style={{ y: imgY, scale: imgScale }}
-        className="absolute inset-0 will-change-transform"
+        className="absolute inset-0 will-change-transform grain-overlay"
       >
         <img
-          src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=2400&q=70"
-          alt="Little Barista фудтрак"
+          src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=2400&q=80"
+          alt="Little Barista foodtruck"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/20 to-graphite" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-ink/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-espresso/60 via-espresso/20 to-espresso" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-ink/70 via-transparent to-transparent" />
       </motion.div>
-
-      {/* Grain overlay */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.09] mix-blend-overlay bg-grain" />
 
       {/* Content */}
       <motion.div
-        style={{ y: textY, opacity }}
-        className="relative z-10 flex h-full flex-col justify-between pt-32 pb-12"
+        style={{ y: contentY, opacity }}
+        className="relative z-10 flex h-full flex-col justify-between pt-32 pb-10"
       >
-        <div className="container flex justify-between text-milk/70">
-          <Eyebrow>
-            <span>Since 2018 · Мобильный кейтеринг</span>
-          </Eyebrow>
-          <Eyebrow className="hidden sm:inline-flex">
-            <span>Moscow · Санкт-Петербург</span>
-          </Eyebrow>
+        {/* Top meta strip */}
+        <div className="container flex items-center justify-between text-milk/70 font-mono text-meta uppercase">
+          <div className="flex items-center gap-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-bronzeLight" />
+            <span>Edition N° 01 · MMXXVI</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-6">
+            <span>55°45′ N</span>
+            <span className="opacity-40">/</span>
+            <span>37°37′ E</span>
+          </div>
+          <div className="hidden md:block">Mobile Catering · Est. 2018</div>
         </div>
 
+        {/* Main headline */}
         <div className="container">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 1 }}
-            className="font-display font-light tracking-tight text-milk text-hero leading-[0.95]"
-          >
-            <span className="block">
-              <RevealText text="Little Barista —" />
-            </span>
-            <span className="block">
-              <RevealText text="фудтрак," delay={0.05} />
-            </span>
-            <span className="block italic font-normal text-latte">
-              <RevealText text="который приезжает первым." delay={0.1} />
-            </span>
-          </motion.h1>
-
-          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-12 md:items-end">
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="md:col-span-6 max-w-lg text-milk/80 text-lg md:text-xl leading-snug text-pretty"
-            >
-              От выездной вечеринки до съёмочной площадки. Накормим группу в поле,
-              проведём промо-акцию или станем изюминкой вашего праздника.
-            </motion.p>
+          <div className="ed-grid items-end">
+            <h1 className="col-span-12 lg:col-span-10 font-display font-light tracking-tightest text-milk text-hero">
+              <span className="block">
+                <RevealText text="Мобильный кейтеринг" />
+              </span>
+              <span className="block italic font-normal text-latte">
+                <RevealText text="Little Barista —" delay={0.06} />
+              </span>
+              <span className="block">
+                <RevealText text="от съёмочной площадки" delay={0.12} />
+              </span>
+              <span className="block">
+                <RevealText text="до выездной вечеринки." delay={0.18} />
+              </span>
+            </h1>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.1, duration: 1 }}
-              className="md:col-span-6 flex flex-wrap items-center justify-start gap-6 md:justify-end"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              className="col-span-12 lg:col-span-2 mt-10 lg:mt-0 lg:pl-4"
             >
-              <div className="flex items-center gap-3 text-milk/70">
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-linelight animate-pulse">
-                  <ArrowDown className="h-4 w-4" />
-                </div>
-                <span className="text-sm font-mono uppercase tracking-widest">
-                  Выберите сценарий
-                </span>
-              </div>
+              <div className="hair mb-4" />
+              <p className="text-milk/70 text-sm leading-relaxed">
+                Фудтрак, который накормит группу в поле, проведёт промо-акцию в центре
+                города или станет изюминкой праздника.
+              </p>
             </motion.div>
           </div>
         </div>
-      </motion.div>
 
-      {/* Corner meta */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10">
-        <div className="container flex items-end justify-between pb-6 text-milk/50 text-xs font-mono uppercase">
-          <div className="tabular-nums">N 55° 45′ 20″ · E 37° 37′ 03″</div>
-          <div className="tabular-nums hidden sm:block">01 · Little Barista</div>
+        {/* Bottom row */}
+        <div className="container flex items-end justify-between text-milk/60 font-mono text-meta uppercase">
+          <div className="flex items-center gap-3">
+            <div className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-linelight">
+              <ArrowDown className="h-4 w-4 animate-bounce" />
+            </div>
+            <span>Три сценария ниже</span>
+          </div>
+          <div className="hidden sm:block">01 / 03 · Cover</div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

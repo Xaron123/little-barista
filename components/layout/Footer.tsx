@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Instagram, Send, Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -10,123 +10,125 @@ const COLS = [
   {
     title: "Направления",
     links: [
-      { href: "/cinema", label: "Кино и продакшн" },
-      { href: "/events", label: "Мероприятия" },
-      { href: "/promo", label: "Промо и BTL" },
+      { href: "/cinema", label: "Кино и продакшн", n: "01" },
+      { href: "/events", label: "Мероприятия", n: "02" },
+      { href: "/promo", label: "Промо и BTL", n: "03" },
     ],
   },
   {
-    title: "Компания",
+    title: "Проект",
     links: [
       { href: "/cases", label: "Кейсы" },
-      { href: "/blog", label: "Блог" },
-      { href: "/contact", label: "Контакты" },
+      { href: "/blog", label: "Журнал" },
+      { href: "/contact", label: "Связаться" },
+    ],
+  },
+  {
+    title: "Каналы",
+    links: [
+      { href: "https://t.me/littlebarista_bot", label: "Telegram" },
+      { href: "#", label: "Instagram" },
+      { href: "mailto:hello@littlebarista.ru", label: "hello@littlebarista.ru" },
     ],
   },
 ];
 
 export function Footer() {
   const pathname = usePathname();
-  const isDark = pathname?.startsWith("/cinema");
 
   return (
-    <footer
-      className={cn(
-        "relative overflow-hidden",
-        isDark ? "bg-ink text-milk" : "bg-ink text-milk"
-      )}
-    >
-      <div className="container pt-24 pb-10">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-          <div className="md:col-span-6">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
+    <footer className="relative overflow-hidden bg-ink text-milk">
+      <div className="container pt-28 pb-8 md:pt-40">
+        <div className="ed-grid gap-y-16">
+          {/* Big statement */}
+          <div className="col-span-12 lg:col-span-7">
+            <div className="mb-6 flex items-center gap-3 text-meta uppercase text-milk/50">
+              <span className="h-1.5 w-1.5 rounded-full bg-bronzeLight" />
+              <span>Ready when you are</span>
+            </div>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.98] tracking-tight text-milk"
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-light leading-[0.9] tracking-tightest text-[clamp(3rem,9vw,8rem)]"
             >
-              Готовы обсудить <br />
-              <span className="italic font-light text-latte">ваш проект?</span>
-            </motion.p>
+              Обсудим
+              <br />
+              <span className="italic text-latte">ваш проект.</span>
+            </motion.h2>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-between gap-6 rounded-full bg-milk px-6 py-4 text-ink transition-colors hover:bg-cream"
+                className="group inline-flex items-baseline gap-3 border-b border-milk/40 pb-2 text-lg"
               >
-                <span className="text-base font-medium">Отправить бриф</span>
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-milk transition-transform group-hover:rotate-45">
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
+                <span>Отправить бриф</span>
+                <ArrowUpRight className="h-4 w-4 translate-y-0.5 transition-transform group-hover:rotate-45" />
               </Link>
               <a
                 href="tel:+79999999999"
-                className="inline-flex items-center gap-3 rounded-full border border-linelight px-6 py-4 text-milk hover:bg-white/5"
+                className="text-milk/70 font-mono num-pill hover:text-milk"
               >
-                <Phone className="h-4 w-4" />
-                +7 (999) 999-99-99
+                +7 999 999-99-99
               </a>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:col-span-6 md:grid-cols-3">
+          {/* Nav columns */}
+          <div className="col-span-12 lg:col-span-5 grid grid-cols-1 gap-10 sm:grid-cols-3">
             {COLS.map((col) => (
               <div key={col.title}>
-                <div className="text-eyebrow uppercase text-milk/50">{col.title}</div>
-                <ul className="mt-4 space-y-2.5">
+                <div className="mb-5 text-meta uppercase text-milk/40">
+                  {col.title}
+                </div>
+                <ul className="space-y-2.5">
                   {col.links.map((l) => (
-                    <li key={l.href}>
+                    <li key={l.href + l.label} className="flex items-baseline gap-2">
+                      {"n" in l && l.n && (
+                        <sup className="font-mono text-[9px] tracking-widest text-milk/40">
+                          {l.n}
+                        </sup>
+                      )}
                       <Link
                         href={l.href}
-                        className="group inline-flex items-center gap-1.5 text-milk/85 hover:text-milk"
+                        className="text-milk/90 link-bronze hover:text-milk"
                       >
                         {l.label}
-                        <ArrowUpRight className="h-3.5 w-3.5 opacity-0 -translate-y-0.5 transition-all group-hover:opacity-100 group-hover:translate-y-0" />
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
-
-            <div>
-              <div className="text-eyebrow uppercase text-milk/50">Связь</div>
-              <ul className="mt-4 space-y-2.5 text-milk/85">
-                <li className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" /> hello@littlebarista.ru
-                </li>
-                <li className="flex items-center gap-2">
-                  <Instagram className="h-4 w-4" /> @littlebarista
-                </li>
-                <li className="flex items-center gap-2">
-                  <Send className="h-4 w-4" /> @littlebarista_bot
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-linelight pt-8 sm:flex-row sm:items-center">
-          <div className="text-sm text-milk/60">
-            © {new Date().getFullYear()} Little Barista. Мобильный кейтеринг.
+        {/* Meta strip */}
+        <div className="mt-24 grid grid-cols-2 gap-6 border-t border-linelight pt-6 text-xs text-milk/50 md:grid-cols-4">
+          <div className="font-mono uppercase tracking-widest">
+            N° 01 · Edition MMXXVI
           </div>
-          <div className="flex gap-6 text-sm text-milk/60">
-            <a href="#" className="hover:text-milk">
-              Политика конфиденциальности
-            </a>
-            <a href="#" className="hover:text-milk">
-              Публичная оферта
-            </a>
+          <div className="hidden md:block font-mono uppercase tracking-widest">
+            Moscow · Санкт-Петербург
+          </div>
+          <div className="hidden md:block font-mono uppercase tracking-widest">
+            © {new Date().getFullYear()} Little Barista
+          </div>
+          <div className="text-right font-mono uppercase tracking-widest">
+            <Link href="#" className="link-bronze">Политика</Link>
           </div>
         </div>
       </div>
 
+      {/* Giant wordmark */}
       <div
         aria-hidden
-        className="pointer-events-none select-none absolute -bottom-16 left-1/2 -translate-x-1/2 font-display text-[22vw] leading-none text-white/[0.04]"
+        className="pointer-events-none absolute -bottom-8 left-0 right-0 select-none overflow-hidden"
       >
-        Little Barista
+        <div className="font-display text-[24vw] leading-[0.8] italic font-light text-milk/[0.05] whitespace-nowrap text-center">
+          Little Barista
+        </div>
       </div>
     </footer>
   );
